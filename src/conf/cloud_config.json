@@ -1,0 +1,12 @@
+{
+    "click_sites":[
+        {
+            "url":"签到地址",
+            "btn_id":"签到按钮id",
+            "btn_xpath":"签到按钮xpath"
+        }
+    ],
+    "pt_sites":[
+        "https://x.x/attendance.php"
+    ]
+}

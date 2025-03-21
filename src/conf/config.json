@@ -1,0 +1,9 @@
+{
+    "cron":"55 12 * * *",
+    "chrome":"http://192.168.x.x:4444",
+    "cookie_cloud":{
+        "domain":"http://192.168.x.x:8088/",
+        "uuid":"用户KEY · UUID",
+        "pwd":"端对端加密密码"
+    }
+}
