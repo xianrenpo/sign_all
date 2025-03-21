@@ -52,6 +52,7 @@ docker build -t sign-all:0.0.1 .
       - /conf:/src/conf
     depends_on:
       - chrome
+      - cookiecloud
     restart: unless-stopped
 
 ```
