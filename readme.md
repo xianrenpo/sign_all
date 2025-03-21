@@ -1,13 +1,28 @@
 # 签到适配
 
 
-# 1 先启动依赖的chrome容器
+# 1 启动依赖的chrome容器和cookiecloud容器
+
+# 1.1 启动chrome容器
 ``` 
   chrome:
     container_name: chrome
     image: selenium/standalone-chrome
     ports:
       - "4444:4444"
+
+```
+# 1.2 启动cookiecloud容器
+``` 
+  cookiecloud:
+    image: easychen/cookiecloud:latest
+    container_name: cookiecloud
+    environment:
+      - PUID=0
+      - PGID=0
+    ports:
+      - 8088:8088
+    restart: unless-stopped
 
 ```
 
@@ -44,6 +59,7 @@ docker build -t sign-all:0.0.1 .
 
 
 ## 附：config.json说明
+## account_config.json cloud_config.json参考文件说明
 ```
 {
     "cron":"55 12 12 * *",
