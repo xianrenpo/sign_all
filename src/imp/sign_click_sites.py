@@ -13,6 +13,20 @@ def do_sign_site(browser, cookie_data, click_site):
         add_cookies(browser, cookie_data, url)
         browser.get(url)
         do_sleep(2)
+
+        input = click_site.get("input", "")
+        if input:
+            id = input.get("id", "")
+            if id == "":
+                text = browser.find_element(By.ID, id)
+                text.send_keys(input.get("text", ""))
+
+            xpath = input.get("xpath", "")
+            if xpath == "":
+                text = browser.find_element(By.XPATH, input.get("xpath", ""))
+                text.send_keys(input.get("text", ""))
+
+        do_sleep(2)
         btn_id = click_site.get("btn_id", "")
         if btn_id:
             btn = browser.find_element(By.ID, btn_id)

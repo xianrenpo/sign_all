@@ -7,7 +7,7 @@ from datetime import datetime
 from sign_account import do_sign_account
 from sign_cloud import do_sign_cloud
 
-debug = True
+debug = False
 config = None
 
 
