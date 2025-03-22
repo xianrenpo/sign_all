@@ -17,12 +17,12 @@ def do_sign_site(browser, cookie_data, click_site):
         input = click_site.get("input", "")
         if input:
             id = input.get("id", "")
-            if id == "":
+            if id:
                 text = browser.find_element(By.ID, id)
                 text.send_keys(input.get("text", ""))
 
             xpath = input.get("xpath", "")
-            if xpath == "":
+            if xpath:
                 text = browser.find_element(By.XPATH, input.get("xpath", ""))
                 text.send_keys(input.get("text", ""))
 
@@ -44,6 +44,9 @@ def do_sign_site(browser, cookie_data, click_site):
                     btn.click()
                 except:
                     browser.execute_script("arguments[0].click();", btn)
+        do_sleep(2)
     except:
         print(url, "do_sign_sites error")
+
+    do_sleep(3)
     print("do_sign_sites end")

@@ -68,6 +68,12 @@ def start_sign():
     browser.implicitly_wait(30)
 
     try:
+        do_sign_cloud(browser, config.get("cookie_cloud"))
+        print("do_sign_cloud 异常 等待重试")
+
+    do_sleep(3)
+
+    try:
         do_sign_account(browser)
     except:
         print("do_sign_account 异常 等待重试")
@@ -76,6 +82,7 @@ def start_sign():
 
     try:
         do_sign_cloud(browser, config.get("cookie_cloud"))
+        browser.quit()
     except:
         print("do_sign_cloud 异常 等待重试")
 
