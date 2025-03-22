@@ -69,6 +69,7 @@ def start_sign():
 
     try:
         do_sign_cloud(browser, config.get("cookie_cloud"))
+    except:
         print("do_sign_cloud 异常 等待重试")
 
     do_sleep(3)
@@ -81,12 +82,10 @@ def start_sign():
     do_sleep(3)
 
     try:
-        do_sign_cloud(browser, config.get("cookie_cloud"))
         browser.quit()
     except:
-        print("do_sign_cloud 异常 等待重试")
+        print("browser.quit 异常 暂时忽略")
 
-    browser.quit()
     # 计算下一次执行时间
     next_run_time = croniter(config.get("cron"), datetime.now()).get_next(datetime)
     print(f"下一次执行时间: {next_run_time}")
