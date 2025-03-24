@@ -45,8 +45,8 @@ def do_sign_site(browser, cookie_data, click_site):
                 except:
                     browser.execute_script("arguments[0].click();", btn)
         do_sleep(2)
-    except:
-        print(url, "do_sign_sites error")
+    except Exception as e:
+        print(url, "do_sign_sites error", e)
 
     do_sleep(3)
     print("do_sign_sites end")

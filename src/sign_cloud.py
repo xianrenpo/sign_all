@@ -14,8 +14,8 @@ def do_sign_cloud(browser, cookie_cloud_config):
             site_model = {"url": pt_site}
             try:
                 do_sign_site(browser, cookid_data, site_model)
-            except:
-                print("do_sign_pt_sites 异常")
+            except Exception as e:
+                print("do_sign_pt_sites 异常", e)
         print("do_sign_pt_sites end")
 
     click_sites = cloud_config.get("click_sites", None)
@@ -24,6 +24,6 @@ def do_sign_cloud(browser, cookie_cloud_config):
         for click_site in click_sites:
             try:
                 do_sign_site(browser, cookid_data, click_site)
-            except:
-                print("do_sign_click_sites 异常")
+            except Exception as e:
+                print("do_sign_click_sites 异常", e)
         print("do_sign_click_sites end")
