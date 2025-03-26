@@ -14,39 +14,62 @@ def do_sign_site(browser, cookie_data, click_site):
         browser.get(url)
         do_sleep(2)
 
-        input = click_site.get("input", "")
-        if input:
-            id = input.get("id", "")
-            if id:
-                text = browser.find_element(By.ID, id)
-                text.send_keys(input.get("text", ""))
-
-            xpath = input.get("xpath", "")
-            if xpath:
-                text = browser.find_element(By.XPATH, input.get("xpath", ""))
-                text.send_keys(input.get("text", ""))
-
+        do_sign_site_input(browser, click_site.get("input", ""))
         do_sleep(2)
-        btn_id = click_site.get("btn_id", "")
-        if btn_id:
-            btn = browser.find_element(By.ID, btn_id)
-            if btn:
-                try:
-                    btn.click()
-                except:
-                    browser.execute_script("arguments[0].click();", btn)
+
+        do_sign_site_btn(browser, click_site.get("btn_id", ""), None)
         do_sleep(2)
-        btn_path = click_site.get("btn_xpath")
-        if btn_path:
-            btn = browser.find_element(By.XPATH, btn_path)
-            if btn:
-                try:
-                    btn.click()
-                except:
-                    browser.execute_script("arguments[0].click();", btn)
+
+        do_sign_site_btn(browser, None, click_site.get("btn_xpath", ""))
+        do_sleep(2)
+
+        # do_sign_site_captcha(browser, click_site.get("captcha", None))
+        # do_sleep(2)
+
+        do_sign_site_btn(browser, click_site.get("sign_id", ""), None)
+        do_sleep(2)
+
+        do_sign_site_btn(browser, None, click_site.get("sign_xpath", ""))
         do_sleep(2)
     except Exception as e:
         print(url, "do_sign_sites error", e)
 
     do_sleep(3)
     print("do_sign_sites end")
+
+
+def do_sign_site_input(browser, input):
+    if not input:
+        return
+    text = find_element(browser, input.get("id", ""), input.get("xpath", ""))
+    if text:
+        text.send_keys(input.get("text", ""))
+
+
+def do_sign_site_btn(browser, btn_id, btn_path):
+    if btn_id:
+        btn = find_element(browser, btn_id, None)
+        if not btn:
+            print("do_sign_site_btn error btn_id", btn_id)
+        try:
+            btn.click()
+        except:
+            browser.execute_script("arguments[0].click();", btn)
+
+    if btn_path:
+        btn = find_element(browser, None, btn_path)
+        if not btn:
+            print("do_sign_site_btn error btn_path", btn_path)
+        try:
+            btn.click()
+        except:
+            browser.execute_script("arguments[0].click();", btn)
+
+
+def find_element(browser, id, xpath):
+    if id:
+        return browser.find_element(By.ID, id)
+
+    if xpath:
+        return browser.find_element(By.XPATH, input.get("xpath", ""))
+    return None
