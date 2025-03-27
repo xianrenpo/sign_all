@@ -71,5 +71,5 @@ def find_element(browser, id, xpath):
         return browser.find_element(By.ID, id)
 
     if xpath:
-        return browser.find_element(By.XPATH, input.get("xpath", ""))
+        return browser.find_element(By.XPATH, xpath)
     return None
