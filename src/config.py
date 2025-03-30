@@ -1,6 +1,7 @@
 import json
 import os
 from time import sleep
+from selenium import webdriver
 
 
 def load_config(fileName):
@@ -17,3 +18,20 @@ def load_config(fileName):
 def do_sleep(second):
     print(f"等待{second}秒")
     sleep(second)
+
+
+def initBrowser(debug, config):
+    if debug:
+        browser = webdriver.Edge()
+        browser.implicitly_wait(30)
+        return browser
+    else:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-gpu")
+        chrome = f'{config.get("chrome")}/wd/hub'
+        browser = webdriver.Remote(command_executor=chrome, options=chrome_options)
+        browser.implicitly_wait(30)
+        return browser

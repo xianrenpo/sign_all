@@ -1,5 +1,5 @@
 from cloud import load_clound
-from config import load_config
+from config import do_sleep, load_config
 from imp.sign_click_sites import do_sign_site
 
 
@@ -27,3 +27,10 @@ def do_sign_cloud(browser, cookie_cloud_config):
             except Exception as e:
                 print("do_sign_click_sites 异常", e)
         print("do_sign_click_sites end")
+
+    do_sleep(3)
+
+    try:
+        browser.quit()
+    except Exception as e:
+        print("browser.quit 异常 暂时忽略", e)

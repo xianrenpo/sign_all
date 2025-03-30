@@ -6,6 +6,13 @@ def do_sign_account(browser):
     account_config = load_config("account_config.json")
     do_sign_98(browser, account_config.get("98"))
 
+    do_sleep(3)
+
+    try:
+        browser.quit()
+    except Exception as e:
+        print("browser.quit 异常 暂时忽略")
+
 
 def do_sign_98(browser, config98):
     print("98 开始登录")
