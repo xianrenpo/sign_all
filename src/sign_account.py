@@ -1,17 +1,15 @@
 from imp.sign98 import do_login, do_reply, do_sign
-from config import do_sleep, load_config
+from config import do_sleep, initBrowser, load_config, quitBrowser
 
 
-def do_sign_account(browser):
-    account_config = load_config("account_config.json")
-    do_sign_98(browser, account_config.get("98"))
-
-    do_sleep(3)
-
+def do_sign_account(debug, config):
     try:
-        browser.quit()
+        with initBrowser(debug, config) as browser:
+            account_config = load_config("account_config.json")
+            do_sign_98(browser, account_config.get("98"))
+            quitBrowser(browser)
     except Exception as e:
-        print("browser.quit 异常 暂时忽略")
+        print("do_sign_account 异常 等待重试", e)
 
 
 def do_sign_98(browser, config98):

@@ -1,4 +1,4 @@
-from config import do_sleep, initBrowser, load_config
+from config import do_sleep, load_config
 from apscheduler.schedulers.blocking import BlockingScheduler
 from croniter import croniter
 from datetime import datetime
@@ -7,6 +7,7 @@ from sign_account import do_sign_account
 from sign_cloud import do_sign_cloud
 
 debug = False
+# debug = True
 
 
 def main():
@@ -52,16 +53,13 @@ def start_sign():
     config = load_config("config.json")
 
     try:
-        do_sign_cloud(initBrowser(debug, config), config.get("cookie_cloud"))
+        do_sign_cloud(debug, config)
     except Exception as e:
         print("do_sign_cloud 异常 等待重试", e)
 
     do_sleep(3)
 
-    try:
-        do_sign_account(initBrowser(debug, config))
-    except Exception as e:
-        print("do_sign_account 异常 等待重试", e)
+    do_sign_account(debug, config)
 
     # 计算下一次执行时间
     next_run_time = croniter(config.get("cron"), datetime.now()).get_next(datetime)

@@ -8,31 +8,29 @@ def do_sign_site(browser, cookie_data, click_site):
     url = click_site.get("url", "")
     if not url:
         return
-    try:
-        browser.get(find_base_url(url))
-        add_cookies(browser, cookie_data, url)
-        browser.get(url)
-        do_sleep(2)
 
-        do_sign_site_input(browser, click_site.get("input", ""))
-        do_sleep(2)
+    browser.get(find_base_url(url))
+    add_cookies(browser, cookie_data, url)
+    browser.get(url)
+    do_sleep(2)
 
-        do_sign_site_btn(browser, click_site.get("btn_id", ""), None)
-        do_sleep(2)
+    do_sign_site_input(browser, click_site.get("input", ""))
+    do_sleep(2)
 
-        do_sign_site_btn(browser, None, click_site.get("btn_xpath", ""))
-        do_sleep(2)
+    do_sign_site_btn(browser, click_site.get("btn_id", ""), None)
+    do_sleep(2)
 
-        # do_sign_site_captcha(browser, click_site.get("captcha", None))
-        # do_sleep(2)
+    do_sign_site_btn(browser, None, click_site.get("btn_xpath", ""))
+    do_sleep(2)
 
-        do_sign_site_btn(browser, click_site.get("sign_id", ""), None)
-        do_sleep(2)
+    # do_sign_site_captcha(browser, click_site.get("captcha", None))
+    # do_sleep(2)
 
-        do_sign_site_btn(browser, None, click_site.get("sign_xpath", ""))
-        do_sleep(2)
-    except Exception as e:
-        print(url, "do_sign_sites error", e)
+    do_sign_site_btn(browser, click_site.get("sign_id", ""), None)
+    do_sleep(2)
+
+    do_sign_site_btn(browser, None, click_site.get("sign_xpath", ""))
+    do_sleep(2)
 
     do_sleep(3)
     print("do_sign_sites end")

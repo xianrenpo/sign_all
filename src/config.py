@@ -35,3 +35,15 @@ def initBrowser(debug, config):
         browser = webdriver.Remote(command_executor=chrome, options=chrome_options)
         browser.implicitly_wait(30)
         return browser
+
+
+def quitBrowser(browser):
+    if not browser:
+        return
+
+    do_sleep(3)
+
+    try:
+        browser.quit()
+    except:
+        print("browser.quit 错误 暂时忽略")
