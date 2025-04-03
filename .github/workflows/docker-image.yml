@@ -33,4 +33,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: sign-all:${{ env.timestamp }}
+        tags: xxdojia/sign-all:${{ env.timestamp }}
