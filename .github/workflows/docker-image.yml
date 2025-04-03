@@ -23,10 +23,14 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Generate Timestamp
+      id: timestamp
+      run: echo "timestamp=$(date +%s)" >> $GITHUB_ENV
+
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v3
       with:
         context: .
         file: ./Dockerfile
         push: true
-        tags: sing-all:$(date +%s)
+        tags: sign-all:${{ env.timestamp }}
