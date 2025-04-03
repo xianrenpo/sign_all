@@ -2,8 +2,11 @@
     "click_sites":[
         {
             "url":"签到地址",
-            "btn_id":"签到按钮id",
-            "btn_xpath":"签到按钮xpath"
+            "input":{"id":"输入文本签到的场景,文本框id","text":"填签到文本内容"},
+            "btn_id":"表情按钮id",
+            "btn_xpath":"表情按钮xpath(站点没有表情按钮id时填这个)",
+            "sign_id":"签到按钮id",
+            "sign_xpath":"签到按钮xpath(站点没有签到按钮id时填这个)"
         }
     ],
     "pt_sites":[
