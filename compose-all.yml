@@ -1,0 +1,29 @@
+services:
+
+  cookiecloud:
+    image: easychen/cookiecloud:latest
+    container_name: cookiecloud
+    environment:
+      - PUID=0
+      - PGID=0
+    ports:
+      - 8088:8088
+    restart: unless-stopped
+
+  chrome:
+    container_name: chrome
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+
+  sign-all:
+    container_name: sign-all
+    image: xxdojia/sign-all
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /conf:/src/conf
+    depends_on:
+      - chrome
+      - cookiecloud
+    restart: unless-stopped
