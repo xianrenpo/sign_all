@@ -1,5 +1,6 @@
 import json
 import os
+import random
 from time import sleep
 from selenium import webdriver
 
@@ -18,6 +19,12 @@ def load_config(fileName):
 def do_sleep(second):
     print(f"等待{second}秒")
     sleep(second)
+
+
+def do_sleep_random(text, second):
+    random_second = random.randint(0, second)
+    print(f"{text}等待{random_second}秒")
+    sleep(random_second)
 
 
 def initBrowser(debug, config):

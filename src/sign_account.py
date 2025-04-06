@@ -1,5 +1,5 @@
 from imp.sign98 import do_login, do_reply, do_sign
-from config import do_sleep, initBrowser, load_config, quitBrowser
+from config import do_sleep, do_sleep_random, initBrowser, load_config, quitBrowser
 
 
 def do_sign_account(debug, config):
@@ -13,6 +13,8 @@ def do_sign_account(debug, config):
 
 
 def do_sign_98(browser, config98):
+    do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds"), 3600)
+
     print("98 开始登录")
     do_login(browser, config98)
     print("98 登录完毕")
