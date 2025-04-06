@@ -13,7 +13,7 @@ def do_sign_account(debug, config):
 
 
 def do_sign_98(browser, config98):
-    do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds"), 3600)
+    do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds", 3600))
 
     print("98 开始登录")
     do_login(browser, config98)
