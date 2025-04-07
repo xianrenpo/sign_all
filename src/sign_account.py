@@ -4,16 +4,17 @@ from config import do_sleep, do_sleep_random, initBrowser, load_config, quitBrow
 
 def do_sign_account(debug, config):
     try:
+        account_config = load_config("account_config.json")
+        config98 = account_config.get("98")
+        do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds", 3600))
         with initBrowser(debug, config) as browser:
-            account_config = load_config("account_config.json")
-            do_sign_98(browser, account_config.get("98"))
+            do_sign_98(browser, config98)
             quitBrowser(browser)
     except Exception as e:
         print("do_sign_account 异常 等待重试", e)
 
 
 def do_sign_98(browser, config98):
-    do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds", 3600))
 
     print("98 开始登录")
     do_login(browser, config98)
