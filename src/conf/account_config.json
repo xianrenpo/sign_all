@@ -9,5 +9,13 @@
         },
         "replyList":["回复内容1","回复内容2","回复内容3"],
         "sleepRandomSeconds":8900
-    }
+    },
+    "common":[
+        {
+            "url":"签到地址",
+            "account":{"uid":"账号","pwd":"密码"},
+            "login":{"uid_input_xpath":"账号输入框","pwd_input_xpath":"密码输入框","btn_xpath":"登陆按钮"},
+            "sign_xpath":"签到按钮"
+        }
+    ]
 }
