@@ -1,6 +1,6 @@
 from cloud import load_clound
 from config import do_sleep, initBrowser, load_config, quitBrowser
-from imp.sign_click_sites import do_sign_site
+from imp.sign_click_site import do_sign_site
 
 
 def do_sign_cloud(debug, config):

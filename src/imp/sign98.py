@@ -6,8 +6,10 @@ from config import do_sleep
 
 
 def do_reply(browser, config):
-    url98 = config.get("domin")
-    browser.get(url98 + "/forum.php?mod=forumdisplay&fid=2")
+    domin = config.get("domin")
+    if not domin or not domin.startswith("http"):
+        return
+    browser.get(domin + "/forum.php?mod=forumdisplay&fid=2")
     eles = browser.find_elements(
         By.XPATH,
         '//table[@summary="forum_2"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst"]',
@@ -62,7 +64,10 @@ def do_login(browser, config):
     qid = config.get("account").get("qid")
     answer = config.get("account").get("answer")
 
-    browser.get(config.get("domin"))
+    domin = config.get("domin")
+    if not domin or not domin.startswith("http"):
+        return
+    browser.get(domin)
     browser.find_element(By.CLASS_NAME, "enter-btn").click()
     do_sleep(1)
 
@@ -87,8 +92,11 @@ def do_login(browser, config):
 
 
 def do_sign(browser, config):
+    domin = config.get("domin")
+    if not domin or not domin.startswith("http"):
+        return
     do_sleep(10)
-    browser.get(config.get("domin") + "/plugin.php?id=dd_sign")
+    browser.get(domin + "/plugin.php?id=dd_sign")
     browser.find_element(By.CLASS_NAME, "ddpc_sign_btn_red").click()
 
     pro = browser.find_element(By.XPATH, '//div[@class="rfm"]/table/tbody/tr/td')
