@@ -6,10 +6,12 @@ from imp.sign_account_site import do_sign_account_site
 def do_sign_account(debug, config):
     account_config = load_config("account_config.json")
 
-    # do_sign_98(debug, config, account_config.get("98"))
+    do_sign_98(debug, config, account_config.get("98"))
 
     print("common 执行开始")
     common_configs = account_config.get("common", None)
+    if not common_configs:
+        return
     for common_config in common_configs:
         url = common_config.get("url", "未配置")
         try:
