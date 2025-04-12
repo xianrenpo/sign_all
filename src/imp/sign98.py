@@ -99,6 +99,7 @@ def do_sign(browser, config):
     browser.get(domin + "/plugin.php?id=dd_sign")
     browser.find_element(By.CLASS_NAME, "ddpc_sign_btn_red").click()
 
+    do_sleep(5)
     pro = browser.find_element(By.XPATH, '//div[@class="rfm"]/table/tbody/tr/td')
     answer = calc_answer(pro.text)
 
