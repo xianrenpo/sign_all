@@ -17,6 +17,7 @@ def do_sign_account_site(browser, common_config):
     browser.get(url)
     sign_xpath = common_config.get("sign_xpath", None)
     if sign_xpath:
+        do_sleep(9)
         browser.find_element(By.XPATH, sign_xpath).click()
 
 
