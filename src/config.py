@@ -30,7 +30,11 @@ def do_sleep_random(text, second):
 
 def initBrowser(debug, config):
     if debug:
-        browser = webdriver.Edge()
+        chrome_options = webdriver.EdgeOptions()
+        chrome_options.add_experimental_option(
+            "prefs", {"profile.managed_default_content_settings.images": 2}
+        )
+        browser = webdriver.Edge(options=chrome_options)
         browser.set_page_load_timeout(30)
         browser.set_script_timeout(10)
         return browser
@@ -57,6 +61,8 @@ def quitBrowser(browser):
     do_sleep(3)
 
     try:
+        browser.close()
         browser.quit()
+        print("browser.quit 执行")
     except:
         print("browser.quit 错误 暂时忽略")

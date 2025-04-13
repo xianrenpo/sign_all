@@ -19,6 +19,7 @@ def do_sign_account_site(browser, common_config):
     if sign_xpath:
         do_sleep(9)
         browser.find_element(By.XPATH, sign_xpath).click()
+    do_sleep(3)
 
 
 def do_login_account_site(browser, login, account):
@@ -41,3 +42,4 @@ def do_login_account_site(browser, login, account):
     if not btn_xpath:
         print("btn_xpath未配置 跳过执行")
     browser.find_element(By.XPATH, btn_xpath).click()
+    do_sleep(3)

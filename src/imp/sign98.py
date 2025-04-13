@@ -76,7 +76,7 @@ def do_login(browser, config):
     browser.find_element(By.ID, "ls_password").send_keys(pwd)
     do_sleep(1)
     browser.find_element(By.XPATH, '//*[@id="lsform"]//button').click()
-
+    do_sleep(5)
     questionid = browser.find_element(By.NAME, "questionid")
     # 设置下拉框的值
     select = Select(questionid)
@@ -87,7 +87,6 @@ def do_login(browser, config):
     browser.find_element(By.NAME, "answer").send_keys(answer)
 
     browser.find_element(By.XPATH, '//*[@name="login"]//button').click()
-
     do_sleep(5)
 
 
