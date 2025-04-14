@@ -18,7 +18,7 @@ def main():
     else:
         scheduler = BlockingScheduler()
         cron = config.get("cron")
-        print("cron表达式：", cron)
+        print("cron表达式:", cron)
         next_run_time = croniter(config.get("cron"), datetime.now()).get_next(datetime)
         print(f"下一次执行时间: {next_run_time}")
 

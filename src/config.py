@@ -61,7 +61,6 @@ def quitBrowser(browser):
     do_sleep(3)
 
     try:
-        browser.close()
         browser.quit()
         print("browser.quit 执行")
     except:

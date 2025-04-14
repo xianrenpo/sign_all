@@ -14,36 +14,37 @@ def do_sign_account(debug, config):
         return
     for common_config in common_configs:
         url = common_config.get("url", "未配置")
+        print(url, "do_sign_account_site 执行开始")
+        browser = initBrowser(debug, config)
         try:
-            print(url, "do_sign_account_site 执行开始")
-            with initBrowser(debug, config) as browser:
-                do_sign_account_site(browser, common_config)
+            do_sign_account_site(browser, common_config)
             print(url, "do_sign_account_site 执行结束")
         except Exception as e:
             print(url, "do_sign_account_site 异常 等待重试", e)
+        finally:
+            quitBrowser(browser)
     print("common 执行结束")
 
 
 def do_sign_98(debug, config, config98):
+    do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds", 3600))
+    browser = initBrowser(debug, config)
     try:
-        do_sleep_random("98签到随机延迟", config98.get("sleepRandomSeconds", 3600))
-        with initBrowser(debug, config) as browser:
+        print("98 开始登录")
+        do_login(browser, config98)
+        print("98 登录完毕")
+        do_sleep(5)
 
-            print("98 开始登录")
-            do_login(browser, config98)
-            print("98 登录完毕")
-            do_sleep(5)
+        print("98 开始回复")
+        do_reply(browser, config98)
+        print("98 回复完毕")
+        do_sleep(5)
 
-            print("98 开始回复")
-            do_reply(browser, config98)
-            print("98 回复完毕")
-            do_sleep(5)
-
-            print("98 开始签到")
-            do_sign(browser, config98)
-            print("98 签到完毕")
-            do_sleep(5)
-
-            quitBrowser(browser)
+        print("98 开始签到")
+        do_sign(browser, config98)
+        print("98 签到完毕")
+        do_sleep(5)
     except Exception as e:
         print("do_sign_98 异常 等待重试", e)
+    finally:
+        quitBrowser(browser)

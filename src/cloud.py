@@ -19,12 +19,16 @@ def load_clound(ccConfig):
 def add_cookies(browser, cookie_data, url):
     domain = find_domain(url)
     cookies = cookie_data.get(domain)
+    if not cookies:
+        print("cookie_cloud中未获取到cookie信息 本次跳过", url)
+        return False
     for cookie in cookies:
         cookie_dict = {
             "name": cookie.get("name"),
             "value": cookie.get("value"),
         }
         browser.add_cookie(cookie_dict)
+    return True
 
 
 def find_domain(url):

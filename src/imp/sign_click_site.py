@@ -10,7 +10,10 @@ def do_sign_site(browser, cookie_data, click_site):
         return
 
     browser.get(find_base_url(url))
-    add_cookies(browser, cookie_data, url)
+    re_cookies = add_cookies(browser, cookie_data, url)
+    if not re_cookies:
+        print("do_sign_site end")
+        return
     browser.get(url)
     do_sleep(2)
 
@@ -33,7 +36,7 @@ def do_sign_site(browser, cookie_data, click_site):
     do_sleep(2)
 
     do_sleep(3)
-    print("do_sign_sites end")
+    print("do_sign_site end")
 
 
 def do_sign_site_input(browser, input):
