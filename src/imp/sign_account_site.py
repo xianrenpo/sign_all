@@ -11,15 +11,15 @@ def do_sign_account_site(browser, common_config):
     account = common_config.get("account", None)
     browser.get(url)
     if login and account:
+        do_sleep(8)
         do_login_account_site(browser, login, account)
 
-    do_sleep(3)
     browser.get(url)
     sign_xpath = common_config.get("sign_xpath", None)
     if sign_xpath:
         do_sleep(9)
         browser.find_element(By.XPATH, sign_xpath).click()
-    do_sleep(3)
+        do_sleep(3)
 
 
 def do_login_account_site(browser, login, account):

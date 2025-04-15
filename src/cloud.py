@@ -8,11 +8,11 @@ def load_clound(ccConfig):
     the_key = cookie_cloud.get_the_key()
     if not the_key:
         print("Failed to get the key")
-        return
+        return None
     decrypted_data = cookie_cloud.get_decrypted_data()
     if not decrypted_data:
         print("Failed to get decrypted data")
-        return
+        return None
     return decrypted_data
 
 
@@ -20,7 +20,7 @@ def add_cookies(browser, cookie_data, url):
     domain = find_domain(url)
     cookies = cookie_data.get(domain)
     if not cookies:
-        print("cookie_cloud中未获取到cookie信息 本次跳过", url)
+        print("cookie_cloud中未获取到cookie信息 本次跳过", domain)
         return False
     for cookie in cookies:
         cookie_dict = {

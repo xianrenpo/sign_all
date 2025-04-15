@@ -6,6 +6,9 @@ from imp.sign_click_site import do_sign_site
 def do_sign_cloud(debug, config):
     cookie_cloud_config = config.get("cookie_cloud")
     cookid_data = load_clound(cookie_cloud_config)
+    if not cookid_data:
+        print("cookie_cloud 加载失败")
+        return
 
     cloud_config = load_config("cloud_config.json")
     pt_sites = cloud_config.get("pt_sites", None)
