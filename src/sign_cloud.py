@@ -16,14 +16,7 @@ def do_sign_cloud(debug, config):
         print("do_sign_pt_sites begin")
         for pt_site in pt_sites:
             site_model = {"url": pt_site}
-            browser = initBrowser(debug, config)
-            try:
-                do_sign_site(browser, cookid_data, site_model)
-            except Exception as e:
-                print("do_sign_pt_site 异常", pt_site, e)
-            finally:
-                quitBrowser(browser)
-
+            re_try("do_sign_pt_site", debug, config, cookid_data, site_model)
         print("do_sign_pt_sites end")
 
     do_sleep(3)
@@ -32,11 +25,21 @@ def do_sign_cloud(debug, config):
     if click_sites:
         print("do_sign_click_sites begin")
         for click_site in click_sites:
-            browser = initBrowser(debug, config)
-            try:
-                do_sign_site(browser, cookid_data, click_site)
-            except Exception as e:
-                print("do_sign_click_site 异常", click_site, e)
-            finally:
-                quitBrowser(browser)
+            re_try("do_sign_click_site", debug, config, cookid_data, click_site)
         print("do_sign_click_sites end")
+
+
+def re_try(log, debug, config, cookid_data, click_site):
+    re_try = True
+    for i in range(3):
+        browser = initBrowser(debug, config)
+        try:
+            do_sign_site(browser, cookid_data, click_site)
+            re_try = False
+        except Exception as e:
+            print("第", i, "次", log, " 异常", click_site, e)
+            do_sleep(10)
+        finally:
+            quitBrowser(browser)
+        if not re_try:
+            break

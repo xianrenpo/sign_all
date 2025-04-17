@@ -62,6 +62,5 @@ def quitBrowser(browser):
 
     try:
         browser.quit()
-        print("browser.quit 执行")
     except:
         print("browser.quit 错误 暂时忽略")

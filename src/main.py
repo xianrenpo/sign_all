@@ -25,7 +25,6 @@ def main():
         try:
             cron_fields = parse_cron_expression(cron)
             scheduler.add_job(start_sign, "cron", **cron_fields)
-            print("添加定时任务成功")
             scheduler.start()
         except:
             scheduler.shutdown()
