@@ -3,6 +3,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from croniter import croniter
 from datetime import datetime
 
+from message import send_message
 from sign_account import do_sign_account
 from sign_cloud import do_sign_cloud
 
@@ -13,6 +14,7 @@ debug = False
 def main():
     print("启动程序")
     config = load_config("config.json")
+    send_message(config.get("qiye_wx", None), "启动中")
     if debug:
         start_sign()
     else:
@@ -21,6 +23,7 @@ def main():
         print("cron表达式:", cron)
         next_run_time = croniter(config.get("cron"), datetime.now()).get_next(datetime)
         print(f"下一次执行时间: {next_run_time}")
+        send_message(config.get("qiye_wx", None), f"下一次执行时间: {next_run_time}")
 
         try:
             cron_fields = parse_cron_expression(cron)
@@ -29,6 +32,7 @@ def main():
         except:
             scheduler.shutdown()
             print("添加定时任务失败")
+            send_message(config.get("qiye_wx", None), "添加定时任务失败")
 
 
 def parse_cron_expression(cron_expression):
@@ -50,6 +54,7 @@ def parse_cron_expression(cron_expression):
 def start_sign():
     print("start_sign")
     config = load_config("config.json")
+    send_message(config.get("qiye_wx", None), "开始执行签到")
 
     try:
         do_sign_cloud(debug, config)
@@ -63,6 +68,9 @@ def start_sign():
     # 计算下一次执行时间
     next_run_time = croniter(config.get("cron"), datetime.now()).get_next(datetime)
     print(f"下一次执行时间: {next_run_time}")
+    send_message(
+        config.get("qiye_wx", None), f"执行完毕，下一次执行时间: {next_run_time}"
+    )
 
 
 if __name__ == "__main__":

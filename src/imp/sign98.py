@@ -9,15 +9,18 @@ def do_reply(browser, config):
     domin = config.get("domin")
     if not domin or not domin.startswith("http"):
         return
-    browser.get(domin + "/forum.php?mod=forumdisplay&fid=2")
+    fid = config.get("fid", "2")
+    browser.get(domin + f"/forum.php?mod=forumdisplay&fid={fid}")
     do_sleep(5)
     eles = browser.find_elements(
         By.XPATH,
-        '//table[@summary="forum_2"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst"]',
+        f'//table[@summary="forum_{fid}"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst"]',
     )
     hrefs = []
-    for ele in eles:
-        hrefs.append(ele.get_attribute("href"))
+    for i in range(len(eles)):
+        if i <= 5:
+            break
+        hrefs.append(eles[i].get_attribute("href"))
     count = 3
     num = 0
     replyList = config.get("replyList")

@@ -42,5 +42,6 @@ def do_login_account_site(browser, login, account):
     btn_xpath = login.get("btn_xpath", None)
     if not btn_xpath:
         print("btn_xpath未配置 跳过执行")
+        return
     browser.find_element(By.XPATH, btn_xpath).click()
     do_sleep(3)
