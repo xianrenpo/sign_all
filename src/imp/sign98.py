@@ -10,6 +10,7 @@ def do_reply(browser, config):
     if not domin or not domin.startswith("http"):
         return
     browser.get(domin + "/forum.php?mod=forumdisplay&fid=2")
+    do_sleep(5)
     eles = browser.find_elements(
         By.XPATH,
         '//table[@summary="forum_2"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst"]',
@@ -68,6 +69,7 @@ def do_login(browser, config):
     if not domin or not domin.startswith("http"):
         return
     browser.get(domin)
+    do_sleep(5)
     browser.find_element(By.CLASS_NAME, "enter-btn").click()
     do_sleep(1)
 
@@ -96,6 +98,7 @@ def do_sign(browser, config):
         return
     do_sleep(10)
     browser.get(domin + "/plugin.php?id=dd_sign")
+    do_sleep(5)
     browser.find_element(By.CLASS_NAME, "ddpc_sign_btn_red").click()
 
     do_sleep(5)

@@ -4,8 +4,8 @@ from config import do_sleep
 
 
 def do_sign_site(browser, cookie_data, click_site):
-    print("do_sign_site begin")
     url = click_site.get("url", "")
+    print("do_sign_site begin", url)
     if not url:
         return
 
@@ -65,6 +65,7 @@ def do_sign_site_btn(browser, btn_id, btn_path):
 
 
 def find_element(browser, id, xpath):
+    do_sleep(5)
     if id:
         return browser.find_element(By.ID, id)
 

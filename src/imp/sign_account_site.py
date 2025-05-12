@@ -33,6 +33,7 @@ def do_login_account_site(browser, login, account):
     if not uid or not pwd:
         print("uid或者pwd未配置 跳过执行")
         return
+    do_sleep(5)
     browser.find_element(By.XPATH, uid_input_xpath).send_keys(uid)
     do_sleep(3)
     browser.find_element(By.XPATH, pwd_input_xpath).send_keys(pwd)

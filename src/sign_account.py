@@ -14,7 +14,7 @@ def do_sign_account(debug, config):
         return
     for common_config in common_configs:
         url = common_config.get("url", "未配置")
-        print(url, "do_sign_account_site 执行开始")
+        print("do_sign_account_site 执行开始", url)
         browser = initBrowser(debug, config)
         try:
             do_sign_account_site(browser, common_config)
