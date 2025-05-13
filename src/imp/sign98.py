@@ -19,7 +19,7 @@ def do_reply(browser, config):
     hrefs = []
     for i in range(len(eles)):
         if i <= 5:
-            break
+            continue
         hrefs.append(eles[i].get_attribute("href"))
     count = 3
     num = 0

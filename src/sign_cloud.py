@@ -27,7 +27,7 @@ def do_sign_cloud(debug, config):
         print("do_sign_pt_sites end")
     send_message(
         config.get("qiye_wx", None),
-        "pt_sites执行完毕,成功{pt_success_count},失败{pt_fail_count}",
+        f"pt_sites执行完毕,成功{pt_success_count},失败{pt_fail_count}",
     )
     do_sleep(3)
 
@@ -46,7 +46,7 @@ def do_sign_cloud(debug, config):
 
     send_message(
         config.get("qiye_wx", None),
-        "click_sites执行完毕,成功{click_success_count},失败{click_fail_count}",
+        f"click_sites执行完毕,成功{click_success_count},失败{click_fail_count}",
     )
 
 

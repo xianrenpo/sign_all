@@ -30,7 +30,7 @@ def do_sign_account(debug, config):
             quitBrowser(browser)
     send_message(
         config.get("qiye_wx", None),
-        "common执行完毕,成功{success_count},失败{fail_count}",
+        f"common执行完毕,成功{success_count},失败{fail_count}",
     )
     print("common 执行结束")
 
