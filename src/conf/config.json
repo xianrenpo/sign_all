@@ -5,5 +5,10 @@
         "domain":"http://192.168.x.x:8088/",
         "uuid":"用户KEY · UUID",
         "pwd":"端对端加密密码"
+    },
+    "qiye_wx":{
+        "corpid":"企业id",
+        "agentid":"应用id",
+        "secret":"应用secret"
     }
 }
