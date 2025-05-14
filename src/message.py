@@ -13,12 +13,13 @@ def send_message(m_config, text):
     if not text:
         return
     agentid = m_config.get("agentid", None)
+    proxy = build_proxy(m_config)
     if not agentid:
         print("agentid is not found")
         return
     try:
         access_token = save_and_load_access_token(m_config)
-        url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}"
+        url = f"{proxy}cgi-bin/message/send?access_token={access_token}"
         data = {
             "touser": "@all",
             "msgtype": "text",
@@ -26,7 +27,20 @@ def send_message(m_config, text):
             "text": {"content": f"sign-all {text}"},
             "safe": 0,
         }
-        response = requests.post(url, json=data)
+
+        session = requests.Session()
+        retries = Retry(
+            total=5,  # 重试次数
+            backoff_factor=1,  # 退避指数
+            status_forcelist=[500, 502, 503, 504],  # 需要重试的HTTP状态码
+        )
+
+        if proxy.startswith("https:"):
+            session.mount("https://", HTTPAdapter(max_retries=retries))
+        elif proxy.startswith("http:"):
+            session.mount("http://", HTTPAdapter(max_retries=retries))
+
+        response = session.post(url, json=data, timeout=20, verify=False)
         if response.status_code == 200:
             data = response.json()
             errcode = data.get("errcode", "")
@@ -69,6 +83,7 @@ def save_and_load_access_token(m_config):
 def load_access_token(m_config):
     corpid = m_config.get("corpid", None)
     secret = m_config.get("secret", None)
+    proxy = build_proxy(m_config)
 
     session = requests.Session()
     retries = Retry(
@@ -76,14 +91,18 @@ def load_access_token(m_config):
         backoff_factor=1,  # 退避指数
         status_forcelist=[500, 502, 503, 504],  # 需要重试的HTTP状态码
     )
-    session.mount("https://", HTTPAdapter(max_retries=retries))
+    if proxy.startswith("https:"):
+        session.mount("https://", HTTPAdapter(max_retries=retries))
+    elif proxy.startswith("http:"):
+        session.mount("http://", HTTPAdapter(max_retries=retries))
 
     try:
         # 发送请求
         response = session.get(
-            "https://qyapi.weixin.qq.com/cgi-bin/gettoken",
+            f"{proxy}cgi-bin/gettoken",
             params={"corpid": corpid, "corpsecret": secret},
-            timeout=10,  # 设置超时时间
+            timeout=20,
+            verify=False,
         )
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
@@ -96,3 +115,10 @@ def load_access_token(m_config):
     except Exception as e:
         print(f"load_access_token 出错: {e}")
         return None
+
+
+def build_proxy(m_config):
+    proxy = m_config.get("proxy", None)
+    if not proxy:
+        return "https://qyapi.weixin.qq.com/"
+    return proxy

@@ -7,6 +7,7 @@
             "qid":"问题id",
             "answer":"问题答案"
         },
+        "fid":"2",
         "replyList":["回复内容1","回复内容2","回复内容3"],
         "sleepRandomSeconds":8900
     },

@@ -9,6 +9,7 @@
     "qiye_wx":{
         "corpid":"企业id",
         "agentid":"应用id",
-        "secret":"应用secret"
+        "secret":"应用secret",
+        "proxy":"https://qyapi.weixin.qq.com/"
     }
 }
