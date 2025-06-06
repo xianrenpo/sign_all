@@ -14,7 +14,7 @@ def do_reply(browser, config):
     do_sleep(5)
     eles = browser.find_elements(
         By.XPATH,
-        f'//table[@summary="forum_{fid}"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst"]',
+        f'//table[@summary="forum_{fid}"]/tbody[contains(@id, "normalthread_")]//th/a[@class="s xst" and not(@style)]',
     )
     hrefs = []
     for i in range(len(eles)):
